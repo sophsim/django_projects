@@ -21,6 +21,7 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('', views.index, name='index'),
+    path('', TemplateView.as_view(template_name='main.html')),
     ]
 
 # New lines below to serve static files in debug mode

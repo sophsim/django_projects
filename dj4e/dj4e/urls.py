@@ -19,6 +19,7 @@ from my_app import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('admin/', admin.site.urls),
 ]
 # Use include() to add paths from the catalog application
 from django.urls import include
@@ -38,4 +39,5 @@ urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 #Add Django site authentication urls (for login, logout, password management)
 urlpatterns += [
     path('home/', include('urls.py'))
+    path('autos/', include('urls.py'))
 ]
