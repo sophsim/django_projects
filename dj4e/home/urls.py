@@ -15,30 +15,25 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from my_app import views
+from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-]
-# Use include() to add paths from the catalog application
-from django.urls import include
-from django.urls import path
+    path('', views.home, name='home'),
+    path('', views.index, name='index'),
+    ]
 
-urlpatterns += [
-    path('catalog/', include('catalog.urls')),
-]
-
-#Add URL maps to redirect the base URL to our application
-from django.views.generic import RedirectView
-urlpatterns += [
-    path('', RedirectView.as_view(url='/catalog/', permanent=True)),
-]
-
+# New lines below to serve static files in debug mode
+import os
+from django.urls import re_path
+from django.views.static import serve
 from django.conf import settings
-from django.conf.urls.static import static
 
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-#Add Django site authentication urls (for login, logout, password management)
-urlpatterns += [
-    path('accounts/', include('django.contrib.auth.urls')),
-]
+if settings.DEBUG:
+    urlpatterns += [
+        re_path(r'^static/(?P<path>.*)$', serve, {
+            'document_root': os.path.join(BASE_DIR, 'home/static'),
+        }),
+    ]
