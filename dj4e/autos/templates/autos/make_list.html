@@ -15,8 +15,8 @@
   {% else %}
     <p>There are no makes in the library.</p>
   {% endif %}
-  <p><a href="{% url 'make_create' %}">Add a make</a></p>
+  <a href="{% url 'make_create' %}">Add a make</a>
   <p>
-    <a href="{% url 'autos' %}">Back to autos</a>
+    <p><a href="{% url 'autos' %}">Back to autos</a></p>
   </p>
 {% endblock %}
