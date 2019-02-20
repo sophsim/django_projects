@@ -15,29 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from my_app import views
+from django.urls import include
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', include('home.urls')),
     path('admin/', admin.site.urls),
-]
-# Use include() to add paths from the catalog application
-from django.urls import include
-from django.urls import path
-from other_app.views import Home
-
-urlpatterns += [
-    path('', TemplateView.as_view(template_name='main.html')),
-    path('', Home.as_view(), name='home'),
-]
-
-from django.conf import settings
-from django.conf.urls.static import static
-
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-#Add Django site authentication urls (for login, logout, password management)
-urlpatterns += [
-    path('home/', include('urls.py'))
-    path('autos/', include('urls.py'))
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('autos/', include('autos.urls')),
 ]
